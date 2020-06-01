@@ -34,7 +34,7 @@
   <a href="#memo-license">License</a>
 </p>
 
-## :information_source: - What's Next Level Week?
+## :information_source: What's Next Level Week?
 
 NLW is a practical week with lots of code, challenges, networking and a single objective: to take you to the next level.
 Through our method you will learn new tools, learn about new technologies and discover hacks that will boost your career.
