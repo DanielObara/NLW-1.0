@@ -80,6 +80,9 @@ $ cd NLW-1.0/backend
 
 # Install dependencies
 $ yarn install
+
+# Run
+$ yarn dev
 ```
 
 ## 🤔 How to contribute
