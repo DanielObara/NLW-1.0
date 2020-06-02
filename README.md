@@ -82,7 +82,7 @@ $ cd NLW-1.0/backend
 $ yarn install
 
 # Run
-$ yarn dev
+$ yarn start
 ```
 
 ## 🤔 How to contribute
