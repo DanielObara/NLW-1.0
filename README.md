@@ -80,6 +80,9 @@ $ cd NLW-1.0/backend
 
 # Install dependencies
 $ yarn install
+
+# Run
+$ yarn start
 ```
 
 ## 🤔 How to contribute
@@ -93,7 +96,7 @@ After merging your receipt request to done, you can delete a branch from yours.
 
 ## :memo: License
 
-This project is under the MIT license. See the [LICENSE](LICENSE.md) for details.
+This project is under the MIT license. See the [LICENSE](https://github.com/DanielObara/NLW-1.0/blob/master/LICENSE) for details.
 
 
 Made with ♥ by Daniel Obara :wave: [Get in touch!](https://www.linkedin.com/in/danielobara/)
