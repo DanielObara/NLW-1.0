@@ -70,7 +70,8 @@ To clone and run this application, you'll need [Git](https://git-scm.com), [Node
 
 From your command line:
 
-### Install API In progress.. :construction:
+### Install API 
+
 ```bash
 # Clone this repository
 $ git clone https://github.com/DanielObara/NLW-1.0
@@ -81,8 +82,16 @@ $ cd NLW-1.0/backend
 # Install dependencies
 $ yarn install
 
-# Run
-$ yarn start
+# Run Migrates
+$ yarn knex:migrate
+
+# Run Seeds
+$ yarn knex:seed
+
+# Start server
+$ yarn dev
+
+running on port 3333
 ```
 
 ## 🤔 How to contribute
