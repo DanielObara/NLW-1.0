@@ -1,10 +1,14 @@
-import express from 'express';
+import express from "express";
+import routes from "./routes";
+import path from "path";
+import cors from "cors";
 
 const app = express();
 
-app.get('/', (req, res) => {
-    console.log('oi')
-    res.send('Hellow World1')
-});
+app.use(express.json());
+app.use(cors());
+app.use(routes);
+
+app.use("/uploads", express.static(path.resolve(__dirname, "..", "uploads")));
 
 app.listen(3333);
