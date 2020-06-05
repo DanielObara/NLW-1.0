@@ -53,7 +53,7 @@ class PointsController {
     const trx = await knex.transaction();
 
     const point = {
-      image: "https://picsum.photos/200",
+      image: "https://source.unsplash.com/random",
       name,
       email,
       whatsapp,
@@ -82,6 +82,19 @@ class PointsController {
       id: point_id,
       ...point,
     });
+  }
+  
+  async delete(request: Request, response: Response) {
+    const id = request.params.id;
+
+    const point = await knex("points").where("id", id).delete();
+
+    if (!point) {
+      return response.status(400).json({ message: "Point not found." });
+    }
+
+
+    return response.json({ msg: "successfully deleted" });
   }
 }
 

@@ -7,7 +7,8 @@
     "dev": "ts-node-dev src/server.ts node_modules --transpileOnly --ignore-watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "knex:migrate": "knex migrate:latest --knexfile knexfile.ts",
-    "knex:seed": "knex seed:run --knexfile knexfile.ts"
+    "knex:seed": "knex seed:run --knexfile knexfile.ts",
+    "knex:rollback":"knex migrate:rollback"
   },
   "keywords": [],
   "author": "Daniel Obara (https://www.linkedin.com/in/danielobara/)",
