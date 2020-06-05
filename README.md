@@ -93,7 +93,47 @@ $ yarn knex:seed
 # Start server
 $ yarn dev
 
-running on port 3333
+# running on port 3333
+```
+
+### Install Front-end
+
+```bash
+# Clone this repository
+$ git clone https://github.com/DanielObara/NLW-1.0
+
+# Go into the repository
+$ cd NLW-1.0/frontent
+
+# Install dependencies
+$ yarn install
+
+# Run
+$ yarn start
+
+# running on port 3000
+```
+
+### Install Mobile
+
+```bash
+# Clone this repository
+$ git clone https://github.com/DanielObara/NLW-1.0
+
+# Go into the repository
+$ cd NLW-1.0/mobile
+
+# Install dependencies
+$ yarn install
+
+# Run
+$ yarn start
+
+# Expo will open, just scan the qrcode on terminal or expo page
+
+# If some problem with fonts, execute:
+$ expo install expo-font @expo-google-fonts/ubuntu @expo-google-fonts/roboto
+
 ```
 
 ## 🤔 How to contribute
