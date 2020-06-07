@@ -13,7 +13,7 @@ import api from "../../services/api";
 import ibge from "../../services/ibge";
 import { toast } from "react-toastify";
 
-import Dropozone from "../../components/Dropzone";
+import Dropzone from "../../components/Dropzone";
 
 import "./styles.css";
 
@@ -220,7 +220,7 @@ const CreatePoint: React.FC = () => {
           <br /> ponto de coleta
         </h1>
 
-        <Dropozone onFileUploaded={setSelectedFile} />
+        <Dropzone onFileUploaded={setSelectedFile} />
 
         <fieldset>
           <legend>
