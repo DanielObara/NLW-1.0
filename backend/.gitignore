@@ -3,3 +3,5 @@ uploads/*
 !uploads/.gitkeep
 
 *.sqlite
+
+!uploads/*.svg

@@ -59,7 +59,8 @@ const CreatePoint: React.FC = () => {
   ]);
 
   const history = useHistory();
-
+  
+  // Get Current Position
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -77,6 +78,7 @@ const CreatePoint: React.FC = () => {
     );
   }, []);
 
+  // Load items
   useEffect(() => {
     async function loadItems() {
       const response = await api.get("/items");
@@ -87,6 +89,7 @@ const CreatePoint: React.FC = () => {
     loadItems();
   }, []);
 
+  // Load UFs
   useEffect(() => {
     async function loadUfs() {
       const response = await ibge.get<IBGEUFResponse[]>(
@@ -106,6 +109,7 @@ const CreatePoint: React.FC = () => {
     loadUfs();
   }, []);
 
+  // Load Cities
   useEffect(() => {
     async function loadCities() {
       if (selectedUf === "0") return;
@@ -153,6 +157,8 @@ const CreatePoint: React.FC = () => {
       setSelectedItems([...selectedItems, id]);
     }
   }
+  
+  // Toastify configurations
   const toastOptions = {
     autoClose: 5000,
     hideProgressBar: false,
@@ -161,6 +167,7 @@ const CreatePoint: React.FC = () => {
     draggable: true,
     progress: undefined,
   };
+  
   const handleSubmit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
