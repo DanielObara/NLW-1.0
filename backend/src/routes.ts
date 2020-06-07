@@ -32,6 +32,7 @@ routes.post(
       }),
     },
     {
+      // Faz a validações de todos os fields
       abortEarly: false,
     }
   ),
