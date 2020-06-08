@@ -149,17 +149,16 @@ $ expo install expo-font @expo-google-fonts/ubuntu @expo-google-fonts/roboto
 
 ## 🤔 How to contribute
 
-- Make a fork;
-- Create a branck with your feature: `git checkout -b my-feature`;
-- Commit changes: `git commit -m 'feat: My new feature'`;
-- Make a push to your branch: `git push origin my-feature`.
+-  Make a fork;
+-  Create a branck with your feature: `git checkout -b my-feature`;
+-  Commit changes: `git commit -m 'feat: My new feature'`;
+-  Make a push to your branch: `git push origin my-feature`.
 
 After merging your receipt request to done, you can delete a branch from yours.
 
 ## :memo: License
 
 This project is under the MIT license. See the [LICENSE](https://github.com/DanielObara/NLW-1.0/blob/master/LICENSE) for details.
-
 
 Made with ♥ by Daniel Obara :wave: [Get in touch!](https://www.linkedin.com/in/danielobara/)
 
@@ -169,7 +168,3 @@ Made with ♥ by Daniel Obara :wave: [Get in touch!](https://www.linkedin.com/in
 [reactjs]: https://reactjs.org
 [rn]: https://facebook.github.io/react-native/
 [yarn]: https://yarnpkg.com/
-[vs]: https://code.visualstudio.com/
-[vceditconfig]: https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig
-[vceslint]: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
-[prettier]: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
