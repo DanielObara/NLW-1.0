@@ -1,4 +1,4 @@
-import { celebrate, Segments, Joi } from "celebrate";
+import { celebrate, Segments, Joi } from 'celebrate';
 
 export const storeValidator = celebrate(
   {
@@ -15,5 +15,5 @@ export const storeValidator = celebrate(
   },
   {
     abortEarly: false,
-  }
+  },
 );
