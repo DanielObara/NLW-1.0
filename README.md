@@ -3,7 +3,7 @@
 </h1>
 
 <h4 align="center"> 
-	:construction: NextLevelWeek 1.0 🚀 In progress.. :construction:
+	:heavy_check_mark: NextLevelWeek 1.0 🚀 Done! :heavy_check_mark:
 </h4>
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/DanielObara/NLW-1.0?color=%2304D361">
@@ -47,11 +47,11 @@ Through our method you will learn new tools, learn about new technologies and di
 An online and completely free event that will help you take the next step in your evolution as a dev.
 
 ### Days
-- Dia 1: Acelerando sua evolução 01/06 - ✅
-- Dia 2: Olhando para as oportunidades 02/06 - ✅
-- Dia 3: A escolha da Stack 03/06 - ✅
-- Dia 4: Até 2 anos em 2 meses 04/06 - ✅
-- Dia 5: Milha extra 05/06 - ✅
+- Dia 1: Acelerando sua evolução 01/06 - :heavy_check_mark:
+- Dia 2: Olhando para as oportunidades 02/06 - :heavy_check_mark:
+- Dia 3: A escolha da Stack 03/06 - :heavy_check_mark:
+- Dia 4: Até 2 anos em 2 meses 04/06 - :heavy_check_mark:
+- Dia 5: Milha extra 05/06 - :heavy_check_mark:
 
 ## 💻 Project
 
