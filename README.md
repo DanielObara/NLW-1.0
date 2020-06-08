@@ -42,6 +42,8 @@
 
 ## :information_source: What's Next Level Week?
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8ebbd66e19884ae88b3fd1e0e2147f66)](https://app.codacy.com/manual/DanielObara/NLW-1.0?utm_source=github.com&utm_medium=referral&utm_content=DanielObara/NLW-1.0&utm_campaign=Badge_Grade_Dashboard)
+
 NLW is a practical week with lots of code, challenges, networking and a single objective: to take you to the next level.
 Through our method you will learn new tools, learn about new technologies and discover hacks that will boost your career.
 An online and completely free event that will help you take the next step in your evolution as a dev.
