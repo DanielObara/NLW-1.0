@@ -1,23 +1,28 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-use-before-define */
 import React, {
   useState,
   useEffect,
   ChangeEvent,
   FormEvent,
   useCallback,
-} from "react";
-import { Link, useHistory } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi";
-import { Map, TileLayer, Marker } from "react-leaflet";
-import { LeafletMouseEvent } from "leaflet";
-import api from "../../services/api";
-import ibge from "../../services/ibge";
-import { toast } from "react-toastify";
+} from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { FiArrowLeft } from 'react-icons/fi';
+import { Map, TileLayer, Marker } from 'react-leaflet';
+import { LeafletMouseEvent } from 'leaflet';
+import { toast } from 'react-toastify';
+import api from '../../services/api';
+import ibge from '../../services/ibge';
 
-import Dropzone from "../../components/Dropzone";
+import Dropzone from '../../components/Dropzone';
 
-import "./styles.css";
+import './styles.css';
 
-import logo from "../../assets/logo.svg";
+import logo from '../../assets/logo.svg';
 
 interface Item {
   id: number;
@@ -40,15 +45,15 @@ const CreatePoint: React.FC = () => {
   const [cities, setCities] = useState<IBGECityResponse[]>([]);
 
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    whatsapp: "",
+    name: '',
+    email: '',
+    whatsapp: '',
   });
 
   const [selectedFile, setSelectedFile] = useState<File>();
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const [selectedUf, setSelectedUf] = useState<string>("0");
-  const [selectedCity, setSelectedCity] = useState<string>("0");
+  const [selectedUf, setSelectedUf] = useState<string>('0');
+  const [selectedCity, setSelectedCity] = useState<string>('0');
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
     0,
     0,
@@ -59,29 +64,29 @@ const CreatePoint: React.FC = () => {
   ]);
 
   const history = useHistory();
-  
+
   // Get Current Position
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      position => {
         const { latitude, longitude } = position.coords;
 
         setInitialPosition([latitude, longitude]);
       },
       () => {
-        toast.error("❌ Oops! Algo deu errado =/", toastOptions);
+        toast.error('❌ Oops! Algo deu errado =/', toastOptions);
       },
       {
         timeout: 30000,
         enableHighAccuracy: true,
-      }
+      },
     );
   }, []);
 
   // Load items
   useEffect(() => {
     async function loadItems() {
-      const response = await api.get("/items");
+      const response = await api.get('/items');
 
       setItems(response.data);
     }
@@ -93,10 +98,10 @@ const CreatePoint: React.FC = () => {
   useEffect(() => {
     async function loadUfs() {
       const response = await ibge.get<IBGEUFResponse[]>(
-        "localidades/estados?orderBy=nome"
+        'localidades/estados?orderBy=nome',
       );
 
-      const ufInitials = response.data.map((uf) => {
+      const ufInitials = response.data.map(uf => {
         return {
           sigla: uf.sigla,
           nome: uf.nome,
@@ -112,13 +117,13 @@ const CreatePoint: React.FC = () => {
   // Load Cities
   useEffect(() => {
     async function loadCities() {
-      if (selectedUf === "0") return;
+      if (selectedUf === '0') return;
 
       const response = await ibge.get<IBGECityResponse[]>(
-        `localidades/estados/${selectedUf}/municipios`
+        `localidades/estados/${selectedUf}/municipios`,
       );
 
-      const cityNames = response.data.map((city) => {
+      const cityNames = response.data.map(city => {
         return { nome: city.nome };
       });
 
@@ -147,17 +152,17 @@ const CreatePoint: React.FC = () => {
   }
 
   function handleSelectItem(id: number) {
-    const alreadySelected = selectedItems.findIndex((item) => item === id);
+    const alreadySelected = selectedItems.findIndex(item => item === id);
 
     if (alreadySelected >= 0) {
-      const filteredItems = selectedItems.filter((item) => item !== id);
+      const filteredItems = selectedItems.filter(item => item !== id);
 
       setSelectedItems(filteredItems);
     } else {
       setSelectedItems([...selectedItems, id]);
     }
   }
-  
+
   // Toastify configurations
   const toastOptions = {
     autoClose: 5000,
@@ -167,7 +172,7 @@ const CreatePoint: React.FC = () => {
     draggable: true,
     progress: undefined,
   };
-  
+
   const handleSubmit = useCallback(
     async (event: FormEvent) => {
       event.preventDefault();
@@ -178,25 +183,25 @@ const CreatePoint: React.FC = () => {
 
         const data = new FormData();
 
-        data.append("name", name);
-        data.append("email", email);
-        data.append("whatsapp", whatsapp);
-        data.append("latitude", String(latitude));
-        data.append("longitude", String(longitude));
-        data.append("uf", selectedUf);
-        data.append("city", selectedCity);
-        data.append("items", selectedItems.join(","));
+        data.append('name', name);
+        data.append('email', email);
+        data.append('whatsapp', whatsapp);
+        data.append('latitude', String(latitude));
+        data.append('longitude', String(longitude));
+        data.append('uf', selectedUf);
+        data.append('city', selectedCity);
+        data.append('items', selectedItems.join(','));
 
         if (selectedFile) {
-          data.append("image", selectedFile);
+          data.append('image', selectedFile);
         }
 
-        await api.post("points", data);
-        toast("✅ Criado com sucesso!", toastOptions);
+        await api.post('points', data);
+        toast('✅ Criado com sucesso!', toastOptions);
 
-        history.push("/");
+        history.push('/');
       } catch (err) {
-        toast.error("❌ Erro!", toastOptions);
+        toast.error('❌ Erro!', toastOptions);
       }
     },
     [
@@ -207,7 +212,7 @@ const CreatePoint: React.FC = () => {
       selectedUf,
       history,
       selectedFile,
-    ]
+    ],
   );
 
   return (
@@ -287,7 +292,7 @@ const CreatePoint: React.FC = () => {
 
               <select onChange={handleSelectUf} name="uf" id="uf">
                 <option value="0">Selecione uma UF</option>
-                {ufs?.map((uf) => (
+                {ufs?.map(uf => (
                   <option key={uf.nome} value={uf.sigla}>
                     {uf.sigla}
                   </option>
@@ -300,7 +305,7 @@ const CreatePoint: React.FC = () => {
               <select onChange={handleSelectCity} name="city" id="city">
                 <option value="0">Selecione uma cidade</option>
 
-                {cities.map((city) => (
+                {cities.map(city => (
                   <option key={city.nome} value={city.nome}>
                     {city.nome}
                   </option>
@@ -317,11 +322,11 @@ const CreatePoint: React.FC = () => {
           </legend>
 
           <ul className="items-grid">
-            {items.map((item) => (
+            {items.map(item => (
               <li
                 key={item.id}
                 onClick={() => handleSelectItem(item.id)}
-                className={selectedItems.includes(item.id) ? "selected" : ""}
+                className={selectedItems.includes(item.id) ? 'selected' : ''}
               >
                 <img src={item.image_url} alt={item.title} />
                 <span>{item.title}</span>
