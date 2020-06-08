@@ -1,10 +1,19 @@
-import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import React, {
+  useState,
+  useEffect,
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+} from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import { LeafletMouseEvent } from "leaflet";
-import axios from "axios";
 import api from "../../services/api";
+import ibge from "../../services/ibge";
+import { toast } from "react-toastify";
+
+import Dropzone from "../../components/Dropzone";
 
 import "./styles.css";
 
@@ -18,6 +27,7 @@ interface Item {
 
 interface IBGEUFResponse {
   sigla: string;
+  nome: string;
 }
 
 interface IBGECityResponse {
@@ -26,8 +36,8 @@ interface IBGECityResponse {
 
 const CreatePoint: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
-  const [ufs, setUfs] = useState<string[]>([]);
-  const [cities, setCities] = useState<string[]>([]);
+  const [ufs, setUfs] = useState<IBGEUFResponse[]>([]);
+  const [cities, setCities] = useState<IBGECityResponse[]>([]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,6 +45,7 @@ const CreatePoint: React.FC = () => {
     whatsapp: "",
   });
 
+  const [selectedFile, setSelectedFile] = useState<File>();
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [selectedUf, setSelectedUf] = useState<string>("0");
   const [selectedCity, setSelectedCity] = useState<string>("0");
@@ -48,15 +59,26 @@ const CreatePoint: React.FC = () => {
   ]);
 
   const history = useHistory();
-
+  
+  // Get Current Position
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
 
-      setInitialPosition([latitude, longitude]);
-    });
+        setInitialPosition([latitude, longitude]);
+      },
+      () => {
+        toast.error("❌ Oops! Algo deu errado =/", toastOptions);
+      },
+      {
+        timeout: 30000,
+        enableHighAccuracy: true,
+      }
+    );
   }, []);
 
+  // Load items
   useEffect(() => {
     async function loadItems() {
       const response = await api.get("/items");
@@ -67,13 +89,19 @@ const CreatePoint: React.FC = () => {
     loadItems();
   }, []);
 
+  // Load UFs
   useEffect(() => {
     async function loadUfs() {
-      const response = await axios.get<IBGEUFResponse[]>(
-        "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+      const response = await ibge.get<IBGEUFResponse[]>(
+        "localidades/estados?orderBy=nome"
       );
 
-      const ufInitials = response.data.map((uf) => uf.sigla);
+      const ufInitials = response.data.map((uf) => {
+        return {
+          sigla: uf.sigla,
+          nome: uf.nome,
+        };
+      });
 
       setUfs(ufInitials);
     }
@@ -81,15 +109,18 @@ const CreatePoint: React.FC = () => {
     loadUfs();
   }, []);
 
+  // Load Cities
   useEffect(() => {
     async function loadCities() {
       if (selectedUf === "0") return;
 
-      const response = await axios.get<IBGECityResponse[]>(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`
+      const response = await ibge.get<IBGECityResponse[]>(
+        `localidades/estados/${selectedUf}/municipios`
       );
 
-      const cityNames = response.data.map((city) => city.nome);
+      const cityNames = response.data.map((city) => {
+        return { nome: city.nome };
+      });
 
       setCities(cityNames);
     }
@@ -126,33 +157,58 @@ const CreatePoint: React.FC = () => {
       setSelectedItems([...selectedItems, id]);
     }
   }
+  
+  // Toastify configurations
+  const toastOptions = {
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  };
+  
+  const handleSubmit = useCallback(
+    async (event: FormEvent) => {
+      event.preventDefault();
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
+      try {
+        const { name, email, whatsapp } = formData;
+        const [latitude, longitude] = selectedPosition;
 
-    const { name, email, whatsapp } = formData;
-    const uf = selectedUf;
-    const city = selectedCity;
-    const [latitude, longitude] = selectedPosition;
-    const items = selectedItems;
+        const data = new FormData();
 
-    const data = {
-      name,
-      email,
-      whatsapp,
-      uf,
-      city,
-      latitude,
-      longitude,
-      items,
-    };
+        data.append("name", name);
+        data.append("email", email);
+        data.append("whatsapp", whatsapp);
+        data.append("latitude", String(latitude));
+        data.append("longitude", String(longitude));
+        data.append("uf", selectedUf);
+        data.append("city", selectedCity);
+        data.append("items", selectedItems.join(","));
 
-    await api.post("/points", data);
+        if (selectedFile) {
+          data.append("image", selectedFile);
+        }
 
-    alert("Ponto de coleta criado");
+        await api.post("points", data);
+        toast("✅ Criado com sucesso!", toastOptions);
 
-    history.push("/");
-  }
+        history.push("/");
+      } catch (err) {
+        toast.error("❌ Erro!", toastOptions);
+      }
+    },
+    [
+      formData,
+      selectedCity,
+      selectedItems,
+      selectedPosition,
+      selectedUf,
+      history,
+      selectedFile,
+    ]
+  );
 
   return (
     <div id="page-create-point">
@@ -170,6 +226,8 @@ const CreatePoint: React.FC = () => {
           Cadastro do
           <br /> ponto de coleta
         </h1>
+
+        <Dropzone onFileUploaded={setSelectedFile} />
 
         <fieldset>
           <legend>
@@ -229,9 +287,9 @@ const CreatePoint: React.FC = () => {
 
               <select onChange={handleSelectUf} name="uf" id="uf">
                 <option value="0">Selecione uma UF</option>
-                {ufs.map((uf) => (
-                  <option key={uf} value={uf}>
-                    {uf}
+                {ufs?.map((uf) => (
+                  <option key={uf.nome} value={uf.sigla}>
+                    {uf.sigla}
                   </option>
                 ))}
               </select>
@@ -243,8 +301,8 @@ const CreatePoint: React.FC = () => {
                 <option value="0">Selecione uma cidade</option>
 
                 {cities.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
+                  <option key={city.nome} value={city.nome}>
+                    {city.nome}
                   </option>
                 ))}
               </select>
@@ -254,7 +312,7 @@ const CreatePoint: React.FC = () => {
 
         <fieldset>
           <legend>
-            <h2>Ítens de coleta</h2>
+            <h2>Itens de coleta</h2>
             <span>Selecione um ou mais itens abaixo</span>
           </legend>
 

@@ -25,6 +25,7 @@ interface Params {
 interface Data {
   point: {
     image: string;
+    image_url: string;
     name: string;
     email: string;
     whatsapp: string;
@@ -83,7 +84,7 @@ const Detail: React.FC = () => {
         <Image
           style={styles.pointImage}
           source={{
-            uri: data.point.image,
+            uri: data.point.image_url,
           }}
         />
 
