@@ -209,10 +209,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Ubuntu_700Bold",
     marginTop: 24,
+    color: "#34CB79",
   },
 
   description: {
-    color: "#6C6C80",
+    color: "#fff",
     fontSize: 16,
     marginTop: 4,
     fontFamily: "Roboto_400Regular",
