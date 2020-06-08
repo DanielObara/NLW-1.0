@@ -1,5 +1,5 @@
 import express from "express";
-import { celebrate, Segments, Joi } from "celebrate";
+import { storeValidator } from "./validators/PointsValidator";
 
 import multer from "multer";
 import multerConfig from "./config/multer";
@@ -18,24 +18,7 @@ routes.get("/items", itemsController.index);
 routes.post(
   "/points",
   upload.single("image"),
-  celebrate(
-    {
-      [Segments.BODY]: Joi.object().keys({
-        name: Joi.string().required(),
-        email: Joi.string().required().email(),
-        whatsapp: Joi.string().required(),
-        city: Joi.string().required(),
-        uf: Joi.string().required().length(2),
-        latitude: Joi.number().required(),
-        longitude: Joi.number().required(),
-        items: Joi.string().required(),
-      }),
-    },
-    {
-      // Faz a validações de todos os fields
-      abortEarly: false,
-    }
-  ),
+  storeValidator,
   pointsController.create
 );
 routes.get("/points", pointsController.index);

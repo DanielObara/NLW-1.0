@@ -192,7 +192,7 @@ const CreatePoint: React.FC = () => {
         }
 
         await api.post("points", data);
-        toast.success("✅ Criado com sucesso!", toastOptions);
+        toast("✅ Criado com sucesso!", toastOptions);
 
         history.push("/");
       } catch (err) {
