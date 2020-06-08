@@ -6,6 +6,9 @@
 	:heavy_check_mark: NextLevelWeek 1.0 🚀 Done! :heavy_check_mark:
 </h4>
 <p align="center">
+	
+<a href="https://www.codacy.com/manual/DanielObara/NLW-1.0?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DanielObara/NLW-1.0&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/43a25c77fd4a4101a4ecc0d3df303a1e"/></a>
+
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/DanielObara/NLW-1.0?color=%2304D361">
 
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/DanielObara/NLW-1.0">
@@ -41,8 +44,6 @@
 </p>
 
 ## :information_source: What's Next Level Week?
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8ebbd66e19884ae88b3fd1e0e2147f66)](https://app.codacy.com/manual/DanielObara/NLW-1.0?utm_source=github.com&utm_medium=referral&utm_content=DanielObara/NLW-1.0&utm_campaign=Badge_Grade_Dashboard)
 
 NLW is a practical week with lots of code, challenges, networking and a single objective: to take you to the next level.
 Through our method you will learn new tools, learn about new technologies and discover hacks that will boost your career.
